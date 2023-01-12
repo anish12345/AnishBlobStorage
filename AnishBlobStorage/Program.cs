@@ -5,16 +5,27 @@ string connectionString = "DefaultEndpointsProtocol=https;AccountName=anishstora
 string containerName = "anishstorage78692";
 string blobName = "script.sql";
 string filePath = "C:\\scripts\\productTable.sql";
+string fileDownloadPath = "C:\\downloadBlob\\productTable.sql";
 
 
-//get list of blobs
-BlobContainerClient blobContainerClient = new BlobContainerClient(connectionString, containerName);
+// download blob
 
-await foreach (BlobItem blobItem in blobContainerClient.GetBlobsAsync())
-{
-    Console.WriteLine("The Blob Name is {0}", blobItem.Name);
-    Console.WriteLine("The Blob Size is {0}", blobItem.Properties.ContentLength);
-}
+BlobClient blobClient = new BlobClient(connectionString, containerName, blobName);
+
+await blobClient.DownloadToAsync(fileDownloadPath);
+
+Console.WriteLine("The blob is downloaded");
+
+
+
+////get list of blobs
+//BlobContainerClient blobContainerClient = new BlobContainerClient(connectionString, containerName);
+
+//await foreach (BlobItem blobItem in blobContainerClient.GetBlobsAsync())
+//{
+//    Console.WriteLine("The Blob Name is {0}", blobItem.Name);
+//    Console.WriteLine("The Blob Size is {0}", blobItem.Properties.ContentLength);
+//}
 
 
 
